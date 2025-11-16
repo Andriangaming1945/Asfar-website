@@ -1,10 +1,9 @@
 <template>
   <div
-    class="relative min-h-screen bg-cover bg-fixed bg-center flex items-center justify-center overflow-hidden"
-    style="background-image: url('/f.jpg');"
+    class="relative min-h-screen bg-cover bg-fixed bg-center flex items-center justify-center overflow-hidden hero-section"
   >
    
-    <div class="absolute inset-0 bg-black/60 animate-fade-in"></div>
+    <div class="absolute inset-0 bg-black/30 animate-fade-in"></div>
 
     <div class="absolute inset-0 overflow-hidden">
       <div class="hero-particle particle-1"></div>
@@ -90,6 +89,26 @@ const scrollToAbout = () => {
 </script>
 
 <style scoped>
+
+.hero-section {
+  background-image: 
+    linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+    url('/f.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
+
+/* Fallback jika image tidak load */
+.hero-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 50%, #0c4a6e 100%);
+  z-index: -1;
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -270,9 +289,14 @@ const scrollToAbout = () => {
   animation-delay: 1s;
 }
 
+
 @media (max-width: 768px) {
   .hero-particle {
     display: none;
+  }
+  
+  .hero-section {
+    background-attachment: scroll; 
   }
 }
 </style>

@@ -1,9 +1,13 @@
 <template>
   <div
-    class="relative min-h-screen bg-cover bg-fixed bg-center flex items-center justify-center overflow-hidden"
-    style="background-image: url('/f.jpg');"
+    ref="heroSection"
+    class="relative min-h-screen flex items-center justify-center overflow-hidden"
   >
-   
+    <div 
+      class="absolute inset-0 bg-cover bg-center transition-transform duration-300 ease-out"
+      :style="`background-image: url('/f.jpg'); transform: scale(${bgScale});`"
+    ></div>
+
     <div class="absolute inset-0 bg-black/60 animate-fade-in"></div>
 
     <div class="absolute inset-0 overflow-hidden">
@@ -13,9 +17,7 @@
       <div class="hero-particle particle-4"></div>
     </div>
 
-   
     <div class="relative z-10 w-full px-4 sm:px-6 md:px-8 max-w-5xl mx-auto text-center py-16 sm:py-20">
-     
       <div class="inline-flex items-center gap-2 bg-gradient-to-r from-[#FB6D00] to-[#FB4D03] text-white px-4 sm:px-6 py-2 sm:py-2.5 rounded-full mb-8 sm:mb-10 animate-slide-down shadow-lg text-xs sm:text-sm animate-pulse-glow">
         <svg class="w-4 h-4 sm:w-5 sm:h-5 animate-spin-slow flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
@@ -23,7 +25,7 @@
         <span class="font-semibold tracking-wide">✨ UMKM Lokal Terbaik Indonesia</span>
       </div>
 
-   
+      <!-- Title -->
       <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white drop-shadow-2xl mb-6 sm:mb-8 leading-tight tracking-wide px-2">
         <span class="block animate-fade-in-up mb-2 sm:mb-3" style="animation-delay: 0.2s">Jelajahi & Temukan</span>
         <span class="block text-transparent bg-clip-text bg-gradient-to-r from-[#FB6D00] via-[#FFA500] to-[#FB4D03] animate-fade-in-up my-2" style="animation-delay: 0.4s">
@@ -32,11 +34,12 @@
         <span class="block animate-fade-in-up mt-2 sm:mt-3" style="animation-delay: 0.6s">Di Seluruh Indonesia</span>
       </h1>
 
+      <!-- Description -->
       <p class="text-white/90 text-sm sm:text-base md:text-lg lg:text-xl mb-8 sm:mb-10 leading-relaxed drop-shadow-lg animate-fade-in-up max-w-3xl mx-auto px-4" style="animation-delay: 0.8s">
         Temukan dan tracking lokasi UMKM di sekitar Anda. Daftarkan UMKM Anda untuk dijangkau lebih luas oleh pelanggan lokal.
       </p>
 
-    
+      <!-- Buttons -->
       <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center animate-fade-in-up px-4" style="animation-delay: 1s">
         <button 
           @click="scrollToAbout"
@@ -67,7 +70,7 @@
       </div>
     </div>
 
-   
+    <!-- Scroll indicator -->
     <div class="absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 animate-bounce z-10">
       <svg class="w-5 h-5 sm:w-6 sm:h-6 text-white/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
@@ -77,6 +80,22 @@
 </template>
 
 <script setup>
+import { ref, onMounted, onUnmounted } from 'vue';
+
+const heroSection = ref(null);
+const bgScale = ref(1);
+
+const handleScroll = () => {
+  if (heroSection.value) {
+    const scrollPosition = window.scrollY;
+    const heroHeight = heroSection.value.offsetHeight;
+    
+    // Hitung skala berdasarkan scroll (1 sampai 1.3)
+    const scale = 1 + (scrollPosition / heroHeight) * 0.3;
+    bgScale.value = Math.min(scale, 1.3); // Maksimal zoom 1.3x
+  }
+};
+
 const scrollToAbout = () => {
   const aboutSection = document.querySelector('#About');
   
@@ -87,6 +106,14 @@ const scrollToAbout = () => {
     });
   }
 };
+
+onMounted(() => {
+  window.addEventListener('scroll', handleScroll);
+});
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', handleScroll);
+});
 </script>
 
 <style scoped>

@@ -3,7 +3,7 @@
     class="relative min-h-screen bg-cover bg-fixed bg-center flex items-center justify-center overflow-hidden hero-section"
   >
    
-    <div class="absolute inset-0 bg-black/[0.35] animate-fade-in"></div>
+    <div class="absolute inset-0 bg-black/[0.50] animate-fade-in"></div>
 
     <div class="absolute inset-0 overflow-hidden">
       <div class="hero-particle particle-1"></div>

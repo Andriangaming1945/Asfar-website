@@ -1,12 +1,12 @@
 <template>
   <div
-    class="relative min-h-screen bg-cover bg-fixed bg-center flex items-center justify-center overflow-hidden select-none"
+    class="relative min-h-screen bg-cover bg-fixed bg-center flex items-center justify-center overflow-hidden"
     style="background-image: url('/f.jpg');"
   >
    
     <div class="absolute inset-0 bg-black/60 animate-fade-in"></div>
 
-    <div class="absolute inset-0 overflow-hidden pointer-events-none">
+    <div class="absolute inset-0 overflow-hidden">
       <div class="hero-particle particle-1"></div>
       <div class="hero-particle particle-2"></div>
       <div class="hero-particle particle-3"></div>
@@ -90,34 +90,6 @@ const scrollToAbout = () => {
 </script>
 
 <style scoped>
-/* Prevent image selection and highlighting on mobile */
-* {
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  -webkit-tap-highlight-color: transparent;
-  -webkit-touch-callout: none;
-}
-
-/* Allow text selection for specific elements if needed */
-p, span, h1, h2, h3, h4, h5, h6 {
-  -webkit-user-select: text;
-  -moz-user-select: text;
-  -ms-user-select: text;
-  user-select: text;
-}
-
-/* Prevent image dragging and selection */
-img {
-  -webkit-user-drag: none;
-  -khtml-user-drag: none;
-  -moz-user-drag: none;
-  -o-user-drag: none;
-  user-drag: none;
-  pointer-events: none;
-}
-
 @keyframes fadeIn {
   from {
     opacity: 0;
